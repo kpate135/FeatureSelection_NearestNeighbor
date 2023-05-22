@@ -58,7 +58,9 @@ void forward_selection_search(int N) { //for part 1 instead of passing in data w
         for (int num : current_set_of_features) {
             cout << num << ",";
         }
-        cout << '\b';
+        if (bestOverallSet.size() > 0) {
+            cout << '\b';
+        }
         cout << "} was best, accuracy is " << best_so_far_accuracy << "%" << endl;
 
         //check if found a new highest overall accuracy, store the feature and accuracy
@@ -94,7 +96,14 @@ void backward_elimination_search(int N) { //starts with full set of features and
     int bestOverallAccuracy; 
 
     int initialAccuracy = leave_one_out_cross_validation(); //find initial accurracy when passing in current_set (all features)
-    cout << "Using all features and \"random\" evaluation, I get an accuracy of " << initialAccuracy << "%" << endl; //default rate
+    cout << "Using all features {";
+    for (int num : bestOverallSet) {
+        cout << num << ",";
+    }
+    if (bestOverallSet.size() > 0) {
+        cout << '\b';
+    }
+    cout << "} and \"random\" evaluation, I get an accuracy of " << initialAccuracy << "%" << endl; //default rate
     bestOverallAccuracy = initialAccuracy; 
 
     cout << endl << "Beginning search" << endl;
@@ -132,7 +141,9 @@ void backward_elimination_search(int N) { //starts with full set of features and
         for (int num : current_set_of_features) {
             cout << num << ",";
         }
-        cout << '\b';
+        if (bestOverallSet.size() > 0) {
+            cout << '\b';
+        }
         cout << "} was best, accuracy is " << best_so_far_accuracy << "%" << endl;
 
         //check if found a new highest overall accuracy, store the feature and accuracy
