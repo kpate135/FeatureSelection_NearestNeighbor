@@ -20,19 +20,19 @@ void introduction(){
     cout << endl;
     cout << "User Choice: ";
     cin >> choice;
-    if(choice != 0 && choice != 1){
-        cout << "User Choice is not accepted...Restarting Programs..." << endl;
-        introduction();
+    while ((choice != 0) && (choice != 1)) {
+        cout << "Invalid choice, please try again" << endl;
+        cin >> choice;
     }
-    else if(choice == 0){
-     cout << "Calling Forward Selection Search" << endl;
-     forward_selection_search(feNum);
-     cout << endl;       
-    }
-    else if(choice == 1){
-     cout << "Calling Backward Elimination Search" << endl;
-     backward_elimination_search(feNum);
-     cout << endl;
+    switch(choice) {
+        case 0:
+            cout << "Calling Forward Selection Search" << endl;
+            forward_selection_search(feNum);
+            break;
+        case 1:
+            cout << "Calling Backward Elimination Search" << endl;
+            backward_elimination_search(feNum);
+            break;
     }
 
     cout << "Ending Program..." << endl;
