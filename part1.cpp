@@ -27,7 +27,7 @@ void forward_selection_search(int N) { //for part 1 instead of passing in data w
     bestOverallAccuracy = initialAccuracy;
 
     cout << endl << "Beginning search" << endl;
-    for (int i = 1; i <= N; ++i) {
+    for (int i = 1; i <= N; ++i) { //level of the search tree
         //cout << "On the " << i << "'th level of the search tree" << endl;
         cout << endl;
         int feature_to_add_at_this_level;
@@ -98,7 +98,7 @@ void backward_elimination_search(int N) { //starts with full set of features and
     bestOverallAccuracy = initialAccuracy; 
 
     cout << endl << "Beginning search" << endl;
-    for (int i = 1; i <= N; ++i) {
+    for (int i = 1; i <= N; ++i) { //level of the search tree
         //cout << "On the " << i << "'th level of the search tree" << endl;
         cout << endl;
         int feature_to_remove_at_this_level;
@@ -166,7 +166,7 @@ int main() {
         cout << "Accuracy 1: " << leave_one_out_cross_validation() << endl;
     }
     */
-    /*
+    srand(time(0));
     int features;
     cout << "Please enter the total number of features: ";
     cin >> features;
@@ -174,26 +174,20 @@ int main() {
     cout << endl << "\t 1) Forward Selection" << endl << "\t 2) Backward Elimination" << endl << "\n\n";
     int algorithmChoice;
     cin >> algorithmChoice;
-    while (algorithmChoice != 0 || algorithmChoice != 1) {
+    while ((algorithmChoice != 1) && (algorithmChoice != 2)) {
         cout << "Invalid choice, please try again" << endl;
         cin >> algorithmChoice;
     }
     switch(algorithmChoice) {
         case 1:
-            forward_selection(features);
+            cout << "Calling Forward Selection Search" << endl;
+            forward_selection_search(features);
             break;
         case 2:
-            backward_elimination(features);
+            cout << "Calling Backward Elimination Search" << endl;
+            backward_elimination_search(features);
             break;
-        default: 
     }
-    */
-    srand(time(0));
-    cout << "Calling Forward Selection Search" << endl;
-    forward_selection_search(4);
-    cout << endl << endl;
     
-    cout << "Calling Backward Elimination Search" << endl;
-    backward_elimination_search(4);
     return 0;
 }
