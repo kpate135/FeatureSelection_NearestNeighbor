@@ -1,8 +1,12 @@
 #include <iostream>
+#include "part1.cpp"
 #include <string>
+#include <cmath>
+#include <time.h>
 using namespace std;
 
 void introduction(){
+    srand(time(0));
     int feNum;
     int choice;
     cout << "Welcome to Group 3's CS170 Project 2 - Machine Learning Feature Selection Algorithm." << endl;
@@ -20,4 +24,16 @@ void introduction(){
         cout << "User Choice is not accepted...Restarting Programs..." << endl;
         introduction();
     }
+    else if(choice == 0){
+     cout << "Calling Forward Selection Search" << endl;
+     forward_selection_search(feNum);
+     cout << endl;       
+    }
+    else if(choice == 1){
+     cout << "Calling Backward Elimination Search" << endl;
+     backward_elimination_search(feNum);
+     cout << endl;
+    }
+
+    cout << "Ending Program..." << endl;
 }
