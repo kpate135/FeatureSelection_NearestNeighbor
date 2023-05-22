@@ -16,4 +16,7 @@ void introduction(){
     cout << endl;
     cout << "User Choice: ";
     cin >> choice;
+    if(choice != 0 && choice != 1){
+        introduction();
+    }
 }
