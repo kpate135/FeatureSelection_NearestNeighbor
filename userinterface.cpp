@@ -17,6 +17,7 @@ void introduction(){
     cout << "User Choice: ";
     cin >> choice;
     if(choice != 0 && choice != 1){
+        cout << "User Choice is not accepted...Restarting Programs..." << endl;
         introduction();
     }
 }
