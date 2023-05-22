@@ -168,6 +168,7 @@ int main() {
     */
     srand(time(0));
     int features;
+    cout << "Welcome to Group 3's CS170 Project 2 - Machine Learning Feature Selection Algorithm" << endl;
     cout << "Please enter the total number of features: ";
     cin >> features;
     cout << endl << "Type the number of the algorithm you want to run." << endl;
