@@ -123,49 +123,18 @@ class Validator {
 };
 
 int main() {
-    /*
-    vector<vector<double>> data;
-    string fileName = "small-test-dataset.txt";
-    string line;
-    double number;
-    ifstream fin(fileName);
-
-    while (getline(fin, line)) {
-        stringstream ss(line);
-        vector<double> row;
-        while (ss >> number) {
-            //push data to matrix
-            row.push_back(number);
-        }
-        data.push_back(row);
-    }
-
-    fin.close();
-    */
-    cout << "Testing if Classifer load method properly works" << endl << endl;
     Classifier classifier;
     vector<vector<double>> data = classifier.load("small-test-dataset.txt");
-    /*
-    //print data
-    for (int i = 0; i < data.size(); ++i) { 
-        for (int j = 0; j < data[i].size(); ++j) {
-            cout << data[i][j] << " ";
-        }
-        cout << endl;
-    }
-    
-    cout << endl << "Testing if object_to_classify is correctly loaded" << endl;
-    vector<double> object_to_classify(data[0].begin() + 1, data[0].end());
-    cout << "object_to_classify is: " << endl;
-    for (int i = 0; i < object_to_classify.size(); ++i) {
-        cout << object_to_classify[i] << " ";
-    }
-    */
+
     Validator validator;
     unordered_set<int> features = {3, 5, 7};
+    cout << "Using features: {";
+    for (auto num : features) {
+        cout << num << ",";
+    }
+    cout << '\b' << "}" << endl;
     data = validator.get_data_for_specific_features(data, features);
     classifier.classification(data);
-
 
     return 0;
 }
