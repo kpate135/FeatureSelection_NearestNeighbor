@@ -12,15 +12,34 @@ using namespace std;
 
 class Classifier {
     public:
-        void Train(vector<double> train_data) {
-
+        void Train(vector<vector<double>> train_data) { //input is the current set of training instances (class label and features)
+            this->train_data = train_data;            
         }
 
-        double Test(double test_instance) { 
-            double predictedClass;
+        double Test(vector<double> test_instance) { //input is test instance (row of dataset: class label + features for the instance)
+            vector<double> object_to_classify(test_instance.begin() + 1, test_instance.end()); //all the features that make up the object (2nd col to last col)
+            double label_object_to_classify = test_instance[0]; //class label
 
+            double nearest_neighbor_distance = INT_MAX;
+            double nearest_neighbor_location = INT_MAX;
+            double nearest_neighbor_label;
+            for (int k = 0; k < this->train_data.size(); ++k) { //find nearest neighbor (comparing distance to all objects in training data)
+                //if (k == i) continue; //don't compare object to itself
 
-            return predictedClass;
+                vector<double> k_object_row(this->train_data[k].begin() + 1, this->train_data[k].end()); //all the features for the k-th object 
+                double sum = 0;
+                for (int q = 0; q < object_to_classify.size(); ++q) {
+                    sum += pow(object_to_classify[q] - k_object_row[q], 2);
+                }
+                double distance = sqrt(sum);
+                if (distance < nearest_neighbor_distance) {
+                    nearest_neighbor_distance = distance;
+                    nearest_neighbor_location = k;
+                    nearest_neighbor_label = this->train_data[nearest_neighbor_location][0];
+                }
+
+            }
+            return nearest_neighbor_label; //predicted class label
         }
 
         vector<vector<double>> load(string fileName) {
@@ -86,16 +105,33 @@ class Classifier {
         }
 
     private:
-        //vector<vector<double>> data;
+        vector<vector<double>> train_data;
 };
 
 class Validator {
     public:
         double leave_one_out_cross_validation(vector<vector<double>> data, vector<double> current_set, double feature_to_add) { //returns accuracy
-            double accuracy;
             //store the class labels, and the current_set of features + the feature to add columns in a smaller matrix (same # of rows but less columns)
+            Classifier classifier;
+            //TODO: make sure the input values are correct, and then properly implement them into this function (similar to/using the get_data_specific_features)
 
+            int number_correctly_classified = 0;
 
+            for (int i = 0; i < data.size(); ++i) { //loop through each row (each object class label and it's features)
+                vector<vector<double>> train_data = data;
+                vector<double> test_instance = data[i];
+                double label_object_to_classify = test_instance[0];
+                train_data.erase(train_data.begin()+i);
+                
+                classifier.Train(train_data);
+                double nearest_neighbor_label = classifier.Test(test_instance);
+
+                if (label_object_to_classify == nearest_neighbor_label) {
+                    ++number_correctly_classified;
+                }
+            }
+            double accuracy = double(number_correctly_classified) / data.size();
+            //cout << "accuracy: " << accuracy*100 << "%" << endl;
             return accuracy;
         }        
 
@@ -117,7 +153,6 @@ class Validator {
             return newData;
         }
 
-
     private:
 
 };
@@ -125,9 +160,11 @@ class Validator {
 int main() {
     Classifier classifier;
     vector<vector<double>> data = classifier.load("small-test-dataset.txt");
+    //vector<vector<double>> data = classifier.load("large-test-dataset-1.txt");
 
     Validator validator;
     unordered_set<int> features = {3, 5, 7};
+    //unordered_set<int> features = {1, 15, 27};
     cout << "Using features: {";
     for (auto num : features) {
         cout << num << ",";
@@ -135,6 +172,10 @@ int main() {
     cout << '\b' << "}" << endl;
     data = validator.get_data_for_specific_features(data, features);
     classifier.classification(data);
+
+    cout << endl << "Testing leave_one_out_cross_validation:" << endl;
+    double accuracy = validator.leave_one_out_cross_validation(data, {}, 0);
+    cout << "accuracy: " << accuracy << endl;
 
     return 0;
 }
