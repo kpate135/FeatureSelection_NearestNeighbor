@@ -110,10 +110,13 @@ class Classifier {
 
 class Validator {
     public:
-        double leave_one_out_cross_validation(vector<vector<double>> data, vector<double> current_set, double feature_to_add) { //returns accuracy
+        double leave_one_out_cross_validation(vector<vector<double>> data, unordered_set<int> current_set, int feature_to_add) { //returns accuracy
             //store the class labels, and the current_set of features + the feature to add columns in a smaller matrix (same # of rows but less columns)
             Classifier classifier;
             //TODO: make sure the input values are correct, and then properly implement them into this function (similar to/using the get_data_specific_features)
+            unordered_set<int> features = current_set;
+            features.insert(feature_to_add);
+            data = get_data_for_specific_features(data, features);
 
             int number_correctly_classified = 0;
 
@@ -170,11 +173,11 @@ int main() {
         cout << num << ",";
     }
     cout << '\b' << "}" << endl;
-    data = validator.get_data_for_specific_features(data, features);
-    classifier.classification(data);
+    vector<vector<double>> data1 = validator.get_data_for_specific_features(data, features);
+    classifier.classification(data1);
 
     cout << endl << "Testing leave_one_out_cross_validation:" << endl;
-    double accuracy = validator.leave_one_out_cross_validation(data, {}, 0);
+    double accuracy = validator.leave_one_out_cross_validation(data, {3, 5}, 7);
     cout << "accuracy: " << accuracy << endl;
 
     return 0;
