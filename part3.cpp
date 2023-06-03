@@ -138,7 +138,7 @@ double get_default_rate(vector<vector<double>> data) {
     else {
         mostProbableClassSize = class2;
     }
-    return double(mostProbableClassSize) / data.size(); //default rate = most probable class / num of instances    
+    return double(mostProbableClassSize) / double(data.size()); //default rate = most probable class / num of instances    
 }
 
 //greedy forward selection search
@@ -152,7 +152,7 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
     
     //find default rate
     double initialAccuracy = get_default_rate(data);//leave_one_out_cross_validation();
-    cout << "Using no features and default rate I get an accuracy of " << initialAccuracy << "%" << endl; //default rate
+    cout << "Running nearest neighbor with no features (default rate), using \"leaving-one-out\" evaluation, I get an accuracy of " << initialAccuracy*100 << "%" << endl; //default rate
     bestOverallAccuracy = initialAccuracy;
 
     cout << endl << "Beginning search" << endl;
@@ -171,7 +171,7 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
                 for (int num : current_set_of_features) {
                     cout << "," << num;
                 }
-                cout << "} accuracy is " << accuracy << "%" << endl;
+                cout << "} accuracy is " << accuracy*100 << "%" << endl;
                 if (accuracy > best_so_far_accuracy) {
                     best_so_far_accuracy = accuracy;
                     feature_to_add_at_this_level = k; 
@@ -188,7 +188,7 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
         if (current_set_of_features.size() > 0) { //bestOverallSet.size() > 0
             cout << '\b';
         }
-        cout << "} was best, accuracy is " << best_so_far_accuracy << "%" << endl;
+        cout << "} was best, accuracy is " << best_so_far_accuracy*100 << "%" << endl;
 
         //check if found a new highest overall accuracy, store the feature and accuracy
         if (best_so_far_accuracy > bestOverallAccuracy) {
@@ -209,7 +209,7 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
     if (bestOverallSet.size() > 0) {
         cout << '\b';
     }
-    cout << "}, which has an accuracy of " << bestOverallAccuracy << "%" << endl;
+    cout << "}, which has an accuracy of " << bestOverallAccuracy*100 << "%" << endl;
     
 }
 
@@ -233,7 +233,7 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
     if (bestOverallSet.size() > 0) {
         cout << '\b';
     }
-    cout << "}, I get an accuracy of " << initialAccuracy << "%" << endl; //all features
+    cout << "}, I get an accuracy of " << initialAccuracy*100 << "%" << endl; //all features
     bestOverallAccuracy = initialAccuracy; 
 
     cout << endl << "Beginning search" << endl;
@@ -257,7 +257,7 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
                     cout << num << ",";
                 }
                 cout << '\b';
-                cout << "} accuracy is " << accuracy << "%" << endl;
+                cout << "} accuracy is " << accuracy*100 << "%" << endl;
                 if (accuracy > best_so_far_accuracy) {
                     best_so_far_accuracy = accuracy;
                     feature_to_remove_at_this_level = k; 
@@ -274,7 +274,7 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
         if (current_set_of_features.size() > 0) { //bestOverallSet.size() > 0
             cout << '\b';
         }
-        cout << "} was best, accuracy is " << best_so_far_accuracy << "%" << endl;
+        cout << "} was best, accuracy is " << best_so_far_accuracy*100 << "%" << endl;
 
         //check if found a new highest overall accuracy, store the feature and accuracy
         if (best_so_far_accuracy > bestOverallAccuracy) {
@@ -295,7 +295,7 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
     if (bestOverallSet.size() > 0) {
         cout << '\b';
     }
-    cout << "}, which has an accuracy of " << bestOverallAccuracy << "%" << endl;    
+    cout << "}, which has an accuracy of " << bestOverallAccuracy*100 << "%" << endl;    
 }
 
 int main() {
@@ -314,13 +314,15 @@ int main() {
     }
     Classifier classifier;
     vector<vector<double>> data = classifier.load(fileName); //"small-test-dataset.txt"
+    cout << "This dataset has " << data[0].size() - 1 << " features (not including the class attribute), with " << data.size() << " instances." << endl << endl;
+    
     switch(algorithmChoice) {
         case 1:
-            cout << "Calling Forward Selection Search" << endl;
+            cout << "Calling Forward Selection Search" << endl << endl;
             forward_selection_search(data);
             break;
         case 2:
-            cout << "Calling Backward Elimination Search" << endl;
+            cout << "Calling Backward Elimination Search" << endl << endl;
             backward_elimination_search(data);
             break;
     }
