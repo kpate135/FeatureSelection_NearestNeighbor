@@ -70,9 +70,8 @@ class Classifier {
 class Validator {
     public:
         double leave_one_out_cross_validation(vector<vector<double>> data, unordered_set<int> current_set, int feature_to_add) { //returns accuracy
-            //store the class labels, and the current_set of features + the feature to add columns in a smaller matrix (same # of rows but less columns)
             Classifier classifier;
-            //TODO: make sure the input values are correct, and then properly implement them into this function (similar to/using the get_data_specific_features)
+            
             unordered_set<int> features = current_set;
             if (feature_to_add != 0) {
                 features.insert(feature_to_add);
@@ -166,8 +165,6 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
         for (int k = 1; k <= N; ++k) { //find which feature we add to give current_set highest accuracy
             if (current_set_of_features.find(k) == current_set_of_features.end()) { //Only consider adding a feature to the set, if not already added.
                 //cout << "--Considering adding the " << k << " feature";
-                //unordered_set<int> new_set = current_set_of_features;
-                //new_set.insert(k); //pass in data and new_set (with k feature) to leave_one_out_cross_validation()
                 double accuracy = validator.leave_one_out_cross_validation(data, current_set_of_features, k); //pass in data, current_set_of_features, k (current feature). Tests {current_set + kth feature} accuracy
                 //cout << " with accuracy " << accuracy << "%" << endl;
                 cout << "\t Using feature(s) {" << k;
@@ -177,7 +174,7 @@ void forward_selection_search(vector<vector<double>> data) { //for part 1 instea
                 cout << "} accuracy is " << accuracy << "%" << endl;
                 if (accuracy > best_so_far_accuracy) {
                     best_so_far_accuracy = accuracy;
-                    feature_to_add_at_this_level = k; //.push_back(k); 
+                    feature_to_add_at_this_level = k; 
                 }
             }
         }
@@ -236,7 +233,7 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
     if (bestOverallSet.size() > 0) {
         cout << '\b';
     }
-    cout << "} and \"random\" evaluation, I get an accuracy of " << initialAccuracy << "%" << endl; //default rate
+    cout << "}, I get an accuracy of " << initialAccuracy << "%" << endl; //all features
     bestOverallAccuracy = initialAccuracy; 
 
     cout << endl << "Beginning search" << endl;
@@ -249,8 +246,6 @@ void backward_elimination_search(vector<vector<double>> data) { //starts with fu
         for (int k = 1; k <= N; ++k) { //find which feature we remove to give current_set highest accuracy
             if (current_set_of_features.find(k) != current_set_of_features.end()) { //Only consider removing, if not already removed.
                 //cout << "--Considering adding the " << k << " feature";
-                //unordered_set<int> new_set = current_set_of_features;
-                //new_set.erase(k); //pass in data and new_set (set without k feature) to leave_one_out_cross_validation()
                 unordered_set<int> features_to_test = current_set_of_features;
                 features_to_test.erase(k);
                 double accuracy = validator.leave_one_out_cross_validation(data, features_to_test, 0); //pass in data, current_set_of_features, k (current feature). Tests {current_set - kth feature} accuracy
