@@ -1,0 +1,80 @@
+Welcome to Group 3's CS170 Project 2 - Machine Learning Feature Selection Algorithm
+Type in the name of the file to test: CS170_Spring_2023_Small_data__2.txt
+
+Type the number of the algorithm you want to run.
+
+         1) Forward Selection
+         2) Backward Elimination
+
+
+2
+Calling Backward Elimination Search
+Using all features {10,9,8,7,6,5,4,3,2,1}, I get an accuracy of 66%
+
+Beginning search
+
+         Removing {1}, Using feature(s) {10,9,8,7,6,5,4,3,2} accuracy is 67%
+         Removing {2}, Using feature(s) {10,9,8,7,6,5,4,3,1} accuracy is 68%
+         Removing {3}, Using feature(s) {10,9,8,7,6,5,4,2,1} accuracy is 70%
+         Removing {4}, Using feature(s) {10,9,8,7,6,5,3,2,1} accuracy is 67%
+         Removing {5}, Using feature(s) {10,9,8,7,6,4,3,2,1} accuracy is 72%
+         Removing {6}, Using feature(s) {10,9,8,7,5,4,3,2,1} accuracy is 68%
+         Removing {7}, Using feature(s) {10,9,8,6,5,4,3,2,1} accuracy is 68%
+         Removing {8}, Using feature(s) {10,9,7,6,5,4,3,2,1} accuracy is 65%
+         Removing {9}, Using feature(s) {10,8,7,6,5,4,3,2,1} accuracy is 67%
+         Removing {10}, Using feature(s) {9,8,7,6,5,4,3,2,1} accuracy is 63%
+
+Feature set {10,9,8,7,6,4,3,2,1} was best, accuracy is 72%
+
+         Removing {1}, Using feature(s) {10,9,8,7,6,4,3,2} accuracy is 71%
+         Removing {2}, Using feature(s) {10,9,8,7,6,4,3,1} accuracy is 72%
+         Removing {3}, Using feature(s) {10,9,8,7,6,4,2,1} accuracy is 73%
+         Removing {4}, Using feature(s) {10,9,8,7,6,3,2,1} accuracy is 71%
+         Removing {6}, Using feature(s) {10,9,8,7,4,3,2,1} accuracy is 72%
+         Removing {7}, Using feature(s) {10,9,8,6,4,3,2,1} accuracy is 69%
+         Removing {8}, Using feature(s) {10,9,7,6,4,3,2,1} accuracy is 70%
+         Removing {9}, Using feature(s) {10,8,7,6,4,3,2,1} accuracy is 68%
+         Removing {10}, Using feature(s) {9,8,7,6,4,3,2,1} accuracy is 65%
+
+Feature set {10,9,8,7,6,4,2,1} was best, accuracy is 73%
+
+         Removing {1}, Using feature(s) {10,9,8,7,6,4,2} accuracy is 74%
+         Removing {2}, Using feature(s) {10,9,8,7,6,4,1} accuracy is 71%
+         Removing {4}, Using feature(s) {10,9,8,7,6,2,1} accuracy is 77%
+         Removing {6}, Using feature(s) {10,9,8,7,4,2,1} accuracy is 72%
+         Removing {7}, Using feature(s) {10,9,8,6,4,2,1} accuracy is 71%
+         Removing {8}, Using feature(s) {10,9,7,6,4,2,1} accuracy is 71%
+         Removing {9}, Using feature(s) {10,8,7,6,4,2,1} accuracy is 67%
+         Removing {10}, Using feature(s) {9,8,7,6,4,2,1} accuracy is 63%
+
+Feature set {10,9,8,7,6,2,1} was best, accuracy is 77%
+
+         Removing {1}, Using feature(s) {10,9,8,7,6,2} accuracy is 79%
+         Removing {2}, Using feature(s) {10,9,8,7,6,1} accuracy is 79%
+         Removing {6}, Using feature(s) {10,9,8,7,2,1} accuracy is 80%
+         Removing {7}, Using feature(s) {10,9,8,6,2,1} accuracy is 76%
+         Removing {8}, Using feature(s) {10,9,7,6,2,1} accuracy is 75%
+         Removing {9}, Using feature(s) {10,8,7,6,2,1} accuracy is 76%
+         Removing {10}, Using feature(s) {9,8,7,6,2,1} accuracy is 71%
+
+Feature set {10,9,8,7,2,1} was best, accuracy is 80%
+
+         Removing {1}, Using feature(s) {10,9,8,7,2} accuracy is 83%
+         Removing {2}, Using feature(s) {10,9,8,7,1} accuracy is 84%
+         Removing {7}, Using feature(s) {10,9,8,2,1} accuracy is 81%
+         Removing {8}, Using feature(s) {10,9,7,2,1} accuracy is 85%
+         Removing {9}, Using feature(s) {10,8,7,2,1} accuracy is 77%
+         Removing {10}, Using feature(s) {9,8,7,2,1} accuracy is 76%
+
+Feature set {10,9,7,2,1} was best, accuracy is 85%
+
+         Removing {1}, Using feature(s) {10,9,7,2} accuracy is 79%
+         Removing {2}, Using feature(s) {10,9,7,1} accuracy is 78%
+         Removing {7}, Using feature(s) {10,9,2,1} accuracy is 81%
+         Removing {9}, Using feature(s) {10,7,2,1} accuracy is 76%
+         Removing {10}, Using feature(s) {9,7,2,1} accuracy is 84%
+
+Feature set {9,7,2,1} was best, accuracy is 84%
+
+(Warning, Accuracy has decreased!)
+Finished Search!! The best features subset is {10,9,7,2,1}, which has an accuracy of 85%
